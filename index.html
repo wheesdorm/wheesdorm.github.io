@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Prestige Realty — Find Your Perfect Home. Luxury real estate, bookable at the tap of a button.">
+<title>Prestige Realty | Luxury Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+/*──────────────────────────────────────────────
+  RESET & BASE
+──────────────────────────────────────────────*/
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#111;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/*──────────────────────────────────────────────
+  CSS VARIABLES
+──────────────────────────────────────────────*/
+:root{
+  --black:#0a0a0a;
+  --white:#ffffff;
+  --off:#f5f3ef;
+  --accent:#2d6a4f;
+  --accent2:#52b788;
+  --text-muted:rgba(255,255,255,0.55);
+  --text-muted-dark:rgba(10,10,10,0.5);
+  --serif:'Baskervville',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --nav-h:72px;
+}
+
+/*──────────────────────────────────────────────
+  NAV
+──────────────────────────────────────────────*/
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  transition:background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+#nav.solid{
+  background:rgba(10,10,10,0.92);
+  backdrop-filter:blur(14px);
+  border-bottom-color:rgba(255,255,255,0.07);
+}
+#nav.light-nav{
+  background:rgba(245,243,239,0.94);
+  backdrop-filter:blur(14px);
+  border-bottom-color:rgba(0,0,0,0.07);
+}
+#nav.light-nav .nav-logo,.nav-link,.nav-link{color:#111}
+.nav-logo{
+  font-family:var(--serif);
+  font-size:19px;font-weight:400;letter-spacing:.04em;
+  color:#fff;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-logo svg{width:32px;height:32px}
+.nav-center{display:flex;gap:8px;align-items:center}
+.nav-link{
+  font-size:13px;font-weight:300;letter-spacing:.06em;
+  color:rgba(255,255,255,0.7);
+  padding:6px 14px;border-radius:4px;
+  transition:color .2s,background .2s;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-investors{
+  font-size:13px;font-weight:300;letter-spacing:.06em;
+  color:rgba(255,255,255,0.7);padding:6px 14px;
+  border:1px solid rgba(255,255,255,0.2);border-radius:4px;
+  transition:all .2s;
+}
+.nav-investors:hover{background:rgba(255,255,255,0.08);color:#fff}
+/* hamburger */
+#menu-btn{
+  display:none;flex-direction:column;gap:5px;padding:8px;
+  cursor:pointer;background:none;border:none;
+}
+#menu-btn span{display:block;width:22px;height:1.5px;background:#fff;transition:.3s}
+#mobile-menu{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:var(--black);
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:32px;
+}
+#mobile-menu.open{display:flex}
+#mobile-menu a{font-size:28px;font-family:var(--serif);color:#fff;font-weight:300}
+#close-menu{position:absolute;top:24px;right:24px;font-size:24px;color:#fff;background:none;border:none;cursor:pointer}
+
+/*──────────────────────────────────────────────
+  SECTION 1 — HERO
+  Exact Joby layout: left text, right tall scrolling image panels
+──────────────────────────────────────────────*/
+#hero{
+  position:relative;
+  height:100vh;min-height:700px;
+  background:var(--black);
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.hero-left{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 60px 80px 60px;
+}
+.hero-tag{
+  font-size:12px;font-weight:300;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent2);
+  margin-bottom:28px;
+}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(44px,5.5vw,74px);
+  font-weight:400;line-height:1.08;
+  color:#fff;margin-bottom:24px;
+}
+.hero-sub{
+  font-size:15px;font-weight:300;line-height:1.8;
+  color:var(--text-muted);max-width:400px;margin-bottom:16px;
+}
+.hero-sub2{
+  font-size:13px;font-weight:300;letter-spacing:.06em;
+  color:rgba(255,255,255,0.35);
+}
+/* Right side: sticky scroll image panels */
+.hero-right{
+  position:relative;overflow:hidden;
+}
+.hero-panels{
+  position:sticky;top:0;height:100vh;width:100%;
+}
+.hero-img-panel{
+  position:absolute;inset:0;
+  opacity:0;transition:opacity .7s ease;
+}
+.hero-img-panel.active{opacity:1}
+.hero-img-panel img{
+  width:100%;height:100%;object-fit:cover;
+}
+.hero-panel-caption{
+  position:absolute;bottom:40px;left:32px;right:32px;
+  z-index:3;
+}
+.hero-panel-num{
+  font-size:11px;font-weight:400;letter-spacing:.2em;
+  color:rgba(255,255,255,0.5);margin-bottom:8px;
+}
+.hero-panel-text{
+  font-family:var(--serif);font-size:18px;font-weight:400;
+  color:#fff;line-height:1.4;margin-bottom:14px;
+  max-width:320px;
+}
+.hero-panel-link{
+  font-size:12px;font-weight:300;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent2);
+  display:inline-flex;align-items:center;gap:8px;
+  transition:gap .3s;
+}
+.hero-panel-link:hover{gap:14px}
+/* scroll dots */
+.hero-dots{
+  position:absolute;bottom:40px;right:32px;
+  display:flex;flex-direction:column;gap:8px;z-index:4;
+}
+.hero-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,0.25);
+  transition:background .3s,transform .3s;cursor:pointer;
+}
+.hero-dot.active{background:#fff;transform:scale(1.4)}
+/* gradient overlay on image panels */
+.hero-img-panel::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+}
+
+/*──────────────────────────────────────────────
+  SECTION 2 — SCROLL STORY (Joby "Nowhere to go but Up")
+  Sticky left text, right image swaps on scroll
+──────────────────────────────────────────────*/
+#scroll-story{
+  position:relative;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--black);
+}
+.story-left{
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 60px;
+  z-index:2;
+}
+.story-eyebrow{
+  font-size:11px;font-weight:300;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent2);
+  margin-bottom:20px;
+}
+.story-h2{
+  font-family:var(--serif);
+  font-size:clamp(36px,4vw,58px);
+  font-weight:400;line-height:1.1;color:#fff;
+  margin-bottom:24px;
+}
+.story-body{
+  font-size:15px;font-weight:300;line-height:1.85;
+  color:var(--text-muted);max-width:400px;margin-bottom:36px;
+}
+.story-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:400;letter-spacing:.12em;
+  text-transform:uppercase;color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.3);
+  padding-bottom:2px;transition:border-color .3s,gap .3s;
+}
+.story-cta:hover{border-color:#fff;gap:16px}
+.story-right{
+  position:relative;
+  /* each story item is 100vh tall */
+}
+.story-item{
+  height:100vh;position:relative;overflow:hidden;
+}
+.story-item img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .8s ease;
+}
+.story-item:hover img{transform:scale(1.03)}
+.story-item-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(120deg,rgba(0,0,0,0.4) 0%,transparent 60%);
+}
+.story-item-label{
+  position:absolute;bottom:40px;left:36px;z-index:2;
+}
+.story-item-num{
+  font-size:40px;font-family:var(--serif);font-weight:300;
+  color:rgba(255,255,255,0.15);line-height:1;
+}
+
+/*──────────────────────────────────────────────
+  SECTION 3 — APP / EXPERIENCE (Joby app section)
+  Full-bleed dark with overlapping images
+──────────────────────────────────────────────*/
+#app-section{
+  background:#111;
+  padding:120px 0;
+  overflow:hidden;
+}
+.app-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;max-width:100%;
+}
+.app-left{
+  padding:80px 60px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.app-eyebrow{
+  font-size:11px;font-weight:300;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent2);margin-bottom:20px;
+}
+.app-h2{
+  font-family:var(--serif);
+  font-size:clamp(32px,3.5vw,52px);
+  font-weight:400;line-height:1.1;color:#fff;margin-bottom:24px;
+}
+.app-body{
+  font-size:15px;font-weight:300;line-height:1.85;
+  color:var(--text-muted);margin-bottom:14px;max-width:400px;
+}
+.app-tag{
+  display:inline-block;
+  font-size:11px;font-weight:400;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--black);
+  background:var(--accent2);padding:6px 16px;border-radius:20px;
+  margin-bottom:32px;
+}
+.app-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  padding:40px;
+}
+.app-img-main{
+  width:70%;border-radius:16px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.5);
+  position:relative;z-index:2;
+}
+.app-img-phone{
+  position:absolute;right:10%;bottom:10%;
+  width:28%;border-radius:24px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.6);
+  z-index:3;border:3px solid rgba(255,255,255,0.08);
+}
+.app-img-badge{
+  position:absolute;left:8%;top:20%;
+  width:26%;border-radius:14px;overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,0.5);z-index:3;
+}
+
+/*──────────────────────────────────────────────
+  SECTION 4 — TECH / PROPERTY TEASER
+  Full bleed image, text overlay, 3 spec pills
+──────────────────────────────────────────────*/
+#tech-teaser{
+  position:relative;height:80vh;min-height:500px;
+  overflow:hidden;background:var(--black);
+}
+.tech-bg{
+  position:absolute;inset:0;
+}
+.tech-bg img{width:100%;height:100%;object-fit:cover;opacity:.55}
+.tech-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%);
+}
+.tech-content{
+  position:absolute;bottom:60px;left:60px;right:60px;
+  z-index:2;
+}
+.tech-h3{
+  font-family:var(--serif);
+  font-size:clamp(28px,3.5vw,48px);
+  font-weight:400;color:#fff;margin-bottom:28px;
+  max-width:600px;line-height:1.2;
+}
+.tech-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:400;letter-spacing:.12em;
+  text-transform:uppercase;color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.3);
+  padding-bottom:2px;margin-bottom:36px;
+  transition:gap .3s,border-color .3s;
+}
+.tech-link:hover{gap:16px;border-color:#fff}
+.tech-pills{
+  display:flex;gap:16px;flex-wrap:wrap;
+}
+.tech-pill{
+  font-size:12px;font-weight:300;letter-spacing:.1em;
+  color:rgba(255,255,255,0.7);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:8px 18px;border-radius:30px;
+  backdrop-filter:blur(8px);
+  background:rgba(255,255,255,0.04);
+}
+
+/*──────────────────────────────────────────────
+  SECTION 5 — NEWS
+──────────────────────────────────────────────*/
+#news{
+  background:var(--off);
+  padding:100px 60px;
+}
+.news-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:56px;
+}
+.news-h2{
+  font-family:var(--serif);
+  font-size:clamp(28px,3vw,44px);
+  font-weight:400;line-height:1.1;color:var(--black);
+}
+.news-all{
+  font-size:13px;font-weight:300;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--black);
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(0,0,0,0.3);padding-bottom:2px;
+  transition:gap .3s;
+}
+.news-all:hover{gap:14px}
+.news-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;
+}
+.news-card{
+  background:#fff;overflow:hidden;cursor:pointer;
+  transition:transform .3s;
+}
+.news-card:hover{transform:translateY(-4px)}
+.news-card-img{
+  aspect-ratio:16/10;overflow:hidden;
+}
+.news-card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s ease;
+}
+.news-card:hover .news-card-img img{transform:scale(1.05)}
+.news-card-body{padding:28px 24px 32px}
+.news-date{
+  font-size:11px;font-weight:300;letter-spacing:.12em;
+  color:var(--text-muted-dark);margin-bottom:12px;
+}
+.news-title{
+  font-family:var(--serif);
+  font-size:18px;font-weight:400;line-height:1.4;color:var(--black);
+}
+
+/*──────────────────────────────────────────────
+  SECTION 6 — PARTNERS (Joby's tabbed partner logos)
+──────────────────────────────────────────────*/
+#partners{
+  background:var(--black);
+  padding:100px 60px;
+}
+.partners-h2{
+  font-family:var(--serif);
+  font-size:clamp(24px,3vw,42px);
+  font-weight:400;color:#fff;
+  max-width:600px;line-height:1.2;margin-bottom:48px;
+}
+.partners-tabs{
+  display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.1);
+  margin-bottom:0;overflow-x:auto;scrollbar-width:none;
+}
+.partners-tabs::-webkit-scrollbar{display:none}
+.ptab{
+  font-size:12px;font-weight:300;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,0.45);
+  padding:14px 24px;border-bottom:2px solid transparent;
+  cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:var(--sans);
+}
+.ptab.active{color:#fff;border-bottom-color:#fff}
+.ptab:hover{color:rgba(255,255,255,0.8)}
+.partner-panels{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:480px;
+}
+.partner-panel{display:none}
+.partner-panel.active{display:grid;grid-template-columns:1fr 1fr}
+.partner-img-col{
+  position:relative;overflow:hidden;
+}
+.partner-img-col img{
+  width:100%;height:100%;object-fit:cover;
+}
+.partner-info-col{
+  padding:60px 50px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:#161616;
+}
+.partner-body{
+  font-size:15px;font-weight:300;line-height:1.85;
+  color:var(--text-muted);margin-bottom:40px;
+}
+.partner-logos{
+  display:flex;flex-wrap:wrap;gap:28px;align-items:center;
+}
+.partner-logo-pill{
+  font-size:14px;font-weight:400;letter-spacing:.08em;
+  color:rgba(255,255,255,0.5);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:8px 20px;border-radius:4px;
+}
+
+/*──────────────────────────────────────────────
+  SECTION 7 — COMPANY TEASER
+  Full bleed image, text right-aligned
+──────────────────────────────────────────────*/
+#company-teaser{
+  position:relative;height:80vh;min-height:500px;overflow:hidden;
+}
+.company-bg{position:absolute;inset:0}
+.company-bg img{width:100%;height:100%;object-fit:cover}
+.company-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.75) 60%,rgba(0,0,0,0.88) 100%);
+}
+.company-content{
+  position:absolute;top:50%;right:80px;
+  transform:translateY(-50%);z-index:2;
+  max-width:480px;text-align:right;
+}
+.company-h3{
+  font-family:var(--serif);
+  font-size:clamp(28px,3.5vw,50px);
+  font-weight:400;color:#fff;margin-bottom:20px;line-height:1.15;
+}
+.company-body{
+  font-size:15px;font-weight:300;line-height:1.85;
+  color:var(--text-muted);margin-bottom:32px;
+}
+.company-links{display:flex;gap:20px;justify-content:flex-end}
+.company-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:400;letter-spacing:.12em;
+  text-transform:uppercase;color:#fff;
+  border-bottom:1px solid rgba(255,255,255,0.3);
+  padding-bottom:2px;transition:gap .3s,border-color .3s;
+}
+.company-link:hover{gap:14px;border-color:#fff}
+
+/*──────────────────────────────────────────────
+  SECTION 8 — DREAM / FUTURE VISION
+  Joby's tall scroll illustration section
+──────────────────────────────────────────────*/
+#dream{
+  background:var(--black);
+  padding:120px 0 0;
+  overflow:hidden;
+}
+.dream-top{
+  padding:0 60px 80px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.dream-left-text{}
+.dream-eyebrow{
+  font-size:11px;font-weight:300;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent2);margin-bottom:16px;
+}
+.dream-h2{
+  font-family:var(--serif);
+  font-size:clamp(36px,4.5vw,64px);
+  font-weight:400;line-height:1.05;color:#fff;
+}
+.dream-right-text{
+  max-width:340px;text-align:right;
+}
+.dream-body{
+  font-size:14px;font-weight:300;line-height:1.85;
+  color:var(--text-muted);margin-bottom:0;
+}
+/* The tall mosaic vision section */
+.dream-mosaic{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;
+}
+.dream-col{display:flex;flex-direction:column;gap:2px}
+.dream-block{position:relative;overflow:hidden}
+.dream-block img{width:100%;display:block;transition:transform .8s ease}
+.dream-block:hover img{transform:scale(1.03)}
+.dream-block-label{
+  position:absolute;top:24px;left:24px;z-index:2;
+}
+.dream-block-tag{
+  font-size:10px;font-weight:300;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,0.5);
+  margin-bottom:8px;
+}
+.dream-block-caption{
+  font-family:var(--serif);
+  font-size:20px;font-weight:400;color:#fff;
+  line-height:1.3;max-width:280px;
+}
+
+/*──────────────────────────────────────────────
+  FOOTER
+──────────────────────────────────────────────*/
+footer{
+  background:var(--black);
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding:80px 60px 40px;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1fr;
+  gap:60px;margin-bottom:64px;
+}
+.footer-brand{}
+.footer-logo{
+  font-family:var(--serif);
+  font-size:18px;font-weight:400;color:#fff;letter-spacing:.04em;
+  display:block;margin-bottom:16px;
+}
+.footer-tagline{
+  font-size:13px;font-weight:300;line-height:1.8;
+  color:rgba(255,255,255,0.4);max-width:260px;
+  margin-bottom:28px;
+}
+.footer-email-form{display:flex;gap:0}
+.footer-email-input{
+  flex:1;padding:11px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-right:none;
+  color:#fff;font-family:var(--sans);font-size:13px;
+  outline:none;
+  transition:border-color .3s;
+}
+.footer-email-input::placeholder{color:rgba(255,255,255,0.3)}
+.footer-email-input:focus{border-color:rgba(255,255,255,0.3)}
+.footer-email-btn{
+  padding:11px 18px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  color:#fff;font-size:13px;font-family:var(--sans);
+  cursor:pointer;transition:background .2s;
+  white-space:nowrap;
+}
+.footer-email-btn:hover{background:rgba(255,255,255,0.14)}
+.footer-col h5{
+  font-size:10px;font-weight:400;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,0.35);
+  margin-bottom:20px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{
+  font-size:14px;font-weight:300;color:rgba(255,255,255,0.6);
+  transition:color .2s;
+}
+.footer-col ul a:hover{color:#fff}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.07);
+  padding-top:32px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-copy{font-size:12px;font-weight:300;color:rgba(255,255,255,0.3)}
+.footer-legal{display:flex;gap:24px;flex-wrap:wrap}
+.footer-legal a{
+  font-size:12px;font-weight:300;
+  color:rgba(255,255,255,0.35);transition:color .2s;
+}
+.footer-legal a:hover{color:rgba(255,255,255,0.7)}
+
+/*──────────────────────────────────────────────
+  SCROLL REVEAL
+──────────────────────────────────────────────*/
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .85s ease,transform .85s ease;
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+
+/*──────────────────────────────────────────────
+  MOBILE
+──────────────────────────────────────────────*/
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;height:auto}
+  .hero-left{padding:calc(var(--nav-h) + 40px) 28px 0;min-height:50vh}
+  .hero-right{height:60vw;min-height:340px}
+  #scroll-story{grid-template-columns:1fr}
+  .story-left{position:relative;height:auto;padding:80px 28px 40px}
+  .story-right{}
+  .story-item{height:70vw;min-height:300px}
+  .app-inner{grid-template-columns:1fr}
+  .app-left{padding:60px 28px}
+  .app-right{padding:0 28px 60px}
+  .tech-content{left:28px;right:28px}
+  #news{padding:80px 28px}
+  .news-grid{grid-template-columns:1fr}
+  #partners{padding:80px 28px}
+  .partner-panels,.partner-panel.active{grid-template-columns:1fr}
+  .partner-img-col{display:none}
+  .partner-info-col{padding:40px 28px}
+  .company-content{right:28px;left:28px;text-align:left;max-width:100%}
+  .company-links{justify-content:flex-start}
+  .dream-top{flex-direction:column;gap:24px;padding:0 28px 60px}
+  .dream-right-text{text-align:left;max-width:100%}
+  .dream-mosaic{grid-template-columns:1fr}
+  footer{padding:60px 28px 32px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px}
+  .news-header{flex-direction:column;align-items:flex-start;gap:16px}
+  #nav{padding:0 24px}
+  .nav-center{display:none}
+  .nav-investors{display:none}
+  #menu-btn{display:flex}
+  .nav-logo{color:#fff}
+}
+</style>
+</head>
+<body>
+
+<!--═══════════════════════════════════════════
+  NAV
+═══════════════════════════════════════════-->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="6" fill="#2d6a4f"/>
+      <path d="M8 22 L16 8 L24 22" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M11 18 L21 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Prestige Realty
+  </a>
+  <div class="nav-center">
+    <a href="#scroll-story" class="nav-link">Experience</a>
+    <a href="#tech-teaser" class="nav-link">Properties</a>
+    <a href="#company-teaser" class="nav-link">Company</a>
+    <a href="#news" class="nav-link">News</a>
+    <a href="#dream" class="nav-link">Vision</a>
+  </div>
+  <div class="nav-right">
+    <a href="#partners" class="nav-investors">Investors</a>
+  </div>
+  <button id="menu-btn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu">
+  <button id="close-menu">✕</button>
+  <a href="#scroll-story">Experience</a>
+  <a href="#tech-teaser">Properties</a>
+  <a href="#company-teaser">Company</a>
+  <a href="#news">News</a>
+  <a href="#dream">Vision</a>
+  <a href="#partners">Investors</a>
+</div>
+
+<!--═══════════════════════════════════════════
+  SECTION 1 — HERO
+═══════════════════════════════════════════-->
+<section id="hero">
+  <!-- Left: headline -->
+  <div class="hero-left">
+    <div class="hero-tag">Luxury Real Estate · Coming to Your City</div>
+    <h1 class="hero-h1">Skip the search.<br>Time to move.</h1>
+    <p class="hero-sub">The future of home buying is here. Discover exceptional properties, bookable at the tap of a button.</p>
+    <p class="hero-sub2">Zero compromise. Zero stress. Just the home and life your family deserves.</p>
+  </div>
+
+  <!-- Right: scroll-triggered image panels -->
+  <div class="hero-right">
+    <div class="hero-panels">
+      <div class="hero-img-panel active" data-panel="0">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&q=85" alt="Luxury villa with pool">
+        <div class="hero-panel-caption">
+          <div class="hero-panel-num">1</div>
+          <div class="hero-panel-text">Leave city congestion behind and choose a stress-free home in the clouds.</div>
+          <a href="#scroll-story" class="hero-panel-link">Discover the Experience →</a>
+        </div>
+      </div>
+      <div class="hero-img-panel" data-panel="1">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=85" alt="Stunning interior living room">
+        <div class="hero-panel-caption">
+          <div class="hero-panel-num">2</div>
+          <div class="hero-panel-text">Sit back and enjoy. Breathtaking interiors come standard with every listing.</div>
+          <a href="#scroll-story" class="hero-panel-link">Discover the Experience →</a>
+        </div>
+      </div>
+      <div class="hero-img-panel" data-panel="2">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=85" alt="Modern white luxury home exterior">
+        <div class="hero-panel-caption">
+          <div class="hero-panel-num">3</div>
+          <div class="hero-panel-text">Enjoy seamless buying with a choreographed journey from viewing to keys.</div>
+          <a href="#scroll-story" class="hero-panel-link">Discover the Experience →</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-dots">
+      <div class="hero-dot active" data-target="0"></div>
+      <div class="hero-dot" data-target="1"></div>
+      <div class="hero-dot" data-target="2"></div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 2 — SCROLL STORY "Nowhere to go but up" equivalent
+═══════════════════════════════════════════-->
+<section id="scroll-story">
+  <!-- Sticky left text -->
+  <div class="story-left">
+    <div class="story-eyebrow">Experience Highlights · Find your home</div>
+    <h2 class="story-h2">Nowhere to look<br>but up.</h2>
+    <p class="story-body">Imagine looking forward to the day you find your dream home. And forgetting what compromise feels like. When luxury living is part of everyday life, anything is possible.</p>
+    <a href="#tech-teaser" class="story-cta">Discover the Experience →</a>
+  </div>
+  <!-- Right: stacked full-height images that scroll -->
+  <div class="story-right">
+    <div class="story-item">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=85" alt="Modern luxury home at dusk">
+      <div class="story-item-overlay"></div>
+      <div class="story-item-label"><div class="story-item-num">01</div></div>
+    </div>
+    <div class="story-item">
+      <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?w=900&q=85" alt="Bright open plan living area">
+      <div class="story-item-overlay"></div>
+      <div class="story-item-label"><div class="story-item-num">02</div></div>
+    </div>
+    <div class="story-item">
+      <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=85" alt="Large suburban luxury home">
+      <div class="story-item-overlay"></div>
+      <div class="story-item-label"><div class="story-item-num">03</div></div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 3 — APP / LISTING PLATFORM
+═══════════════════════════════════════════-->
+<section id="app-section">
+  <div class="app-inner">
+    <div class="app-left reveal">
+      <div class="app-eyebrow">Our Platform</div>
+      <h2 class="app-h2">Seamless door to door property search.</h2>
+      <div class="app-tag">Coming soon</div>
+      <p class="app-body">Our app coordinates your entire home search — from virtual tours to mortgage pre-approval to offer submission. All from a few taps on your phone.</p>
+      <p class="app-body">Our app coordinates your end-to-end journey, including a dedicated concierge from first viewing to final handover.</p>
+    </div>
+    <div class="app-right reveal reveal-d2">
+      <div class="app-img-main">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=85" alt="Luxury home exterior" style="width:100%;display:block">
+      </div>
+      <div class="app-img-phone">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&q=85" alt="Cozy home" style="width:100%;display:block">
+      </div>
+      <div class="app-img-badge">
+        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=300&q=85" alt="Home facade" style="width:100%;display:block">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 4 — PROPERTY / TECH TEASER
+═══════════════════════════════════════════-->
+<section id="tech-teaser">
+  <div class="tech-bg">
+    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1800&q=85" alt="Aerial luxury estate">
+  </div>
+  <div class="tech-overlay"></div>
+  <div class="tech-content reveal">
+    <h3 class="tech-h3">Architecture that makes<br>the dream possible</h3>
+    <a href="#partners" class="tech-link">Explore →</a>
+    <div class="tech-pills">
+      <span class="tech-pill">Curated listings</span>
+      <span class="tech-pill">Off-market access</span>
+      <span class="tech-pill">Zero compromise</span>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 5 — NEWS
+═══════════════════════════════════════════-->
+<section id="news">
+  <div class="news-header reveal">
+    <h2 class="news-h2">News from the market</h2>
+    <a href="#" class="news-all">View all News →</a>
+  </div>
+  <div class="news-grid">
+    <div class="news-card reveal">
+      <div class="news-card-img">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&q=80" alt="Luxury villa news">
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">Mar 13, 2026</div>
+        <div class="news-title">Prestige Realty Completes Record Sale Across the Marina District and Surrounding Waterfront</div>
+      </div>
+    </div>
+    <div class="news-card reveal reveal-d1">
+      <div class="news-card-img">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=700&q=80" alt="Interior design news">
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">Mar 11, 2026</div>
+        <div class="news-title">Prestige Realty's First Fully Verified Smart-Home Listing Takes the Market</div>
+      </div>
+    </div>
+    <div class="news-card reveal reveal-d2">
+      <div class="news-card-img">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" alt="Real estate market news">
+      </div>
+      <div class="news-card-body">
+        <div class="news-date">Mar 9, 2026</div>
+        <div class="news-title">Prestige Realty to Begin Operations in Lagos and Abuja Under New Urban Property Programme</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 6 — PARTNERS (tabbed, exactly like Joby)
+═══════════════════════════════════════════-->
+<section id="partners">
+  <h2 class="partners-h2 reveal">With partners like this, there's nowhere to go but up.</h2>
+  <div class="partners-tabs">
+    <button class="ptab active" data-tab="buyers">Buyers</button>
+    <button class="ptab" data-tab="finance">Finance</button>
+    <button class="ptab" data-tab="developers">Developers</button>
+    <button class="ptab" data-tab="legal">Legal</button>
+    <button class="ptab" data-tab="technology">Technology</button>
+    <button class="ptab" data-tab="government">Government</button>
+  </div>
+
+  <div class="partner-panels">
+    <div class="partner-panel active" data-panel="buyers">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=800&q=80" alt="Buyers">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">We're partnering with global leaders in home financing to seamlessly integrate purchasing power into the future of door-to-door property ownership.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Rightmove</span>
+          <span class="partner-logo-pill">Zillow</span>
+          <span class="partner-logo-pill">Zoopla</span>
+        </div>
+      </div>
+    </div>
+    <div class="partner-panel" data-panel="finance">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80" alt="Finance">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">Our partnerships with leading global banks will integrate our property service into existing financial networks for seamless mortgages.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Barclays</span>
+          <span class="partner-logo-pill">HSBC</span>
+          <span class="partner-logo-pill">Santander</span>
+        </div>
+      </div>
+    </div>
+    <div class="partner-panel" data-panel="developers">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80" alt="Developers">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">Together with key development partners, we're building the physical properties needed for convenient, premium everyday living.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Berkeley Group</span>
+          <span class="partner-logo-pill">Redrow</span>
+          <span class="partner-logo-pill">Barratt</span>
+        </div>
+      </div>
+    </div>
+    <div class="partner-panel" data-panel="legal">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&q=80" alt="Legal">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">We collaborate with pioneers in property law and conveyancing to create a seamless, world-class purchasing experience.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Clifford Chance</span>
+          <span class="partner-logo-pill">Linklaters</span>
+        </div>
+      </div>
+    </div>
+    <div class="partner-panel" data-panel="technology">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Technology">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">Our technology partnerships power the systems that support virtual tours, AI valuation, smart contracts, and operational excellence.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Matterport</span>
+          <span class="partner-logo-pill">DocuSign</span>
+        </div>
+      </div>
+    </div>
+    <div class="partner-panel" data-panel="government">
+      <div class="partner-img-col">
+        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80" alt="Government">
+      </div>
+      <div class="partner-info-col">
+        <p class="partner-body">We collaborate with forward-thinking government agencies to shape housing policy, accelerate affordable developments, and enable the future of urban living.</p>
+        <div class="partner-logos">
+          <span class="partner-logo-pill">Homes England</span>
+          <span class="partner-logo-pill">GLA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 7 — COMPANY TEASER ("The sky was never the limit" equivalent)
+═══════════════════════════════════════════-->
+<section id="company-teaser">
+  <div class="company-bg">
+    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=85" alt="City skyline at dusk">
+  </div>
+  <div class="company-overlay"></div>
+  <div class="company-content reveal">
+    <h3 class="company-h3">The market was never the limit.</h3>
+    <p class="company-body">In 2010, a small team of agents set out to redefine luxury real estate. Thousands of successful sales later, we've turned "what if" into "what's next".</p>
+    <div class="company-links">
+      <a href="#dream" class="company-link">Discover our Story →</a>
+      <a href="#" class="company-link">Work at Prestige →</a>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  SECTION 8 — DREAM / FUTURE VISION
+  Joby's mosaic tall scroll illustration section
+═══════════════════════════════════════════-->
+<section id="dream">
+  <div class="dream-top">
+    <div class="dream-left-text reveal">
+      <div class="dream-eyebrow">Our future vision · New wave living</div>
+      <h2 class="dream-h2">Dream of<br>Home</h2>
+    </div>
+    <div class="dream-right-text reveal reveal-d2">
+      <p class="dream-body">In 2010, a small team of Prestige agents set out to build the future of property. Thousands of successful transactions later, we've turned "what if" into "what's next".</p>
+    </div>
+  </div>
+
+  <!-- Mosaic grid replicating Joby's tall dream section -->
+  <div class="dream-mosaic">
+    <!-- Left column -->
+    <div class="dream-col">
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&q=85" alt="Future Vision 1" style="aspect-ratio:4/3;object-fit:cover;width:100%">
+        <div class="dream-block-label">
+          <div class="dream-block-tag">Future Vision — 1</div>
+          <div class="dream-block-caption">Imagine a world where every invitation across town is a definite 'yes'.</div>
+        </div>
+      </div>
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&q=85" alt="Future Vision 3" style="aspect-ratio:3/2;object-fit:cover;width:100%">
+        <div class="dream-block-label">
+          <div class="dream-block-tag">Future Vision — 3</div>
+          <div class="dream-block-caption">Where our neighbourhoods are greener, friendlier places to be.</div>
+        </div>
+      </div>
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&q=85" alt="Aerial estate" style="aspect-ratio:16/9;object-fit:cover;width:100%">
+      </div>
+    </div>
+    <!-- Right column -->
+    <div class="dream-col">
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=900&q=85" alt="Future Vision 2" style="aspect-ratio:3/4;object-fit:cover;width:100%">
+        <div class="dream-block-label">
+          <div class="dream-block-tag">Future Vision — 2</div>
+          <div class="dream-block-caption">Where moving house is effortless and every neighbourhood is local.</div>
+        </div>
+      </div>
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&q=85" alt="White luxury home" style="aspect-ratio:4/3;object-fit:cover;width:100%">
+      </div>
+      <div class="dream-block">
+        <img src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=900&q=85" alt="Modern interior" style="aspect-ratio:3/2;object-fit:cover;width:100%">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--═══════════════════════════════════════════
+  FOOTER
+═══════════════════════════════════════════-->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo">Prestige Realty</a>
+      <p class="footer-tagline">Connecting exceptional people with exceptional homes since 2010. Luxury, discretion, and results — every time.</p>
+      <div class="footer-email-form">
+        <input class="footer-email-input" type="email" placeholder="Sign up for updates" id="footer-email">
+        <button class="footer-email-btn" onclick="handleFooterEmail()">→</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Discover</h5>
+      <ul>
+        <li><a href="#scroll-story">Experience</a></li>
+        <li><a href="#tech-teaser">Properties</a></li>
+        <li><a href="#company-teaser">Company</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="#partners">For Investors</a></li>
+        <li><a href="#">Property Search</a></li>
+        <li><a href="#">Prestige Shop</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">X / Twitter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Prestige Realty Ltd.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Impact Reporting</a>
+      <a href="#">Safety Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*──────────────────────────────────────────────
+  NAV: change style on scroll
+──────────────────────────────────────────────*/
+const nav = document.getElementById('nav');
+function updateNav(){
+  const y = window.scrollY;
+  if(y > 60){
+    nav.classList.add('solid');
+  } else {
+    nav.classList.remove('solid');
+  }
+}
+window.addEventListener('scroll', updateNav, {passive:true});
+updateNav();
+
+/*──────────────────────────────────────────────
+  MOBILE MENU
+──────────────────────────────────────────────*/
+document.getElementById('menu-btn').addEventListener('click',()=>{
+  document.getElementById('mobile-menu').classList.add('open');
+});
+document.getElementById('close-menu').addEventListener('click',()=>{
+  document.getElementById('mobile-menu').classList.remove('open');
+});
+document.querySelectorAll('#mobile-menu a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('open'));
+});
+
+/*──────────────────────────────────────────────
+  HERO: auto-rotate image panels every 4s
+  Also respond to dot clicks
+──────────────────────────────────────────────*/
+const heroPanels = document.querySelectorAll('.hero-img-panel');
+const heroDots   = document.querySelectorAll('.hero-dot');
+let currentPanel = 0;
+let heroTimer;
+
+function showPanel(idx){
+  heroPanels.forEach(p=>p.classList.remove('active'));
+  heroDots.forEach(d=>d.classList.remove('active'));
+  heroPanels[idx].classList.add('active');
+  heroDots[idx].classList.add('active');
+  currentPanel = idx;
+}
+
+function nextPanel(){
+  showPanel((currentPanel + 1) % heroPanels.length);
+}
+
+function startHeroTimer(){
+  clearInterval(heroTimer);
+  heroTimer = setInterval(nextPanel, 4000);
+}
+
+heroDots.forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    showPanel(parseInt(dot.dataset.target));
+    startHeroTimer();
+  });
+});
+
+startHeroTimer();
+
+/*──────────────────────────────────────────────
+  SCROLL STORY: update sticky left text based on
+  which story-item is in view (mimics Joby scroll)
+──────────────────────────────────────────────*/
+const storyItems = document.querySelectorAll('.story-item');
+const storyLeft  = document.querySelector('.story-left');
+
+const storyTexts = [
+  {
+    eyebrow:'Experience Highlights · Find your home',
+    h2:'Nowhere to look<br>but up.',
+    body:'Imagine looking forward to the day you find your dream home. And forgetting what compromise feels like. When luxury living is part of everyday life, anything is possible.',
+    cta:'Discover the Experience'
+  },
+  {
+    eyebrow:'Interior Design · World-class finishes',
+    h2:'Interiors that<br>inspire.',
+    body:'Every room tells a story. Our curated listings feature homes where architecture and comfort blend seamlessly — spaces you\'ll never want to leave.',
+    cta:'View Properties'
+  },
+  {
+    eyebrow:'Location · Prime neighbourhoods',
+    h2:'Your perfect<br>address awaits.',
+    body:'From city penthouses to countryside estates, we place you exactly where your life needs to be. Proximity to the best schools, restaurants, and green spaces — guaranteed.',
+    cta:'Explore Listings'
+  },
+];
+
+function updateStoryText(idx){
+  const t = storyTexts[idx] || storyTexts[0];
+  document.querySelector('.story-eyebrow').textContent = t.eyebrow;
+  document.querySelector('.story-h2').innerHTML = t.h2;
+  document.querySelector('.story-body').textContent = t.body;
+  document.querySelector('.story-cta').textContent = t.cta + ' →';
+}
+
+const storyObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = Array.from(storyItems).indexOf(e.target);
+      updateStoryText(idx);
+    }
+  });
+},{threshold:0.5});
+
+storyItems.forEach(item=>storyObs.observe(item));
+
+/*──────────────────────────────────────────────
+  PARTNER TABS
+──────────────────────────────────────────────*/
+const ptabs   = document.querySelectorAll('.ptab');
+const ppanels = document.querySelectorAll('.partner-panel');
+
+ptabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    ptabs.forEach(t=>t.classList.remove('active'));
+    ppanels.forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    document.querySelector(`.partner-panel[data-panel="${target}"]`).classList.add('active');
+  });
+});
+
+/*──────────────────────────────────────────────
+  SCROLL REVEAL
+──────────────────────────────────────────────*/
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+reveals.forEach(el=>revealObs.observe(el));
+
+/*──────────────────────────────────────────────
+  SMOOTH SCROLL for nav links
+──────────────────────────────────────────────*/
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const tgt = document.querySelector(a.getAttribute('href'));
+    if(tgt){
+      e.preventDefault();
+      tgt.scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+
+/*──────────────────────────────────────────────
+  FOOTER EMAIL
+──────────────────────────────────────────────*/
+function handleFooterEmail(){
+  const inp = document.getElementById('footer-email');
+  if(!inp.value.includes('@')){inp.focus();return;}
+  inp.value='';
+  inp.placeholder='Thanks! We\'ll be in touch.';
+  setTimeout(()=>{inp.placeholder='Sign up for updates';},4000);
+}
+document.getElementById('footer-email').addEventListener('keydown',e=>{
+  if(e.key==='Enter') handleFooterEmail();
+});
+
+/*──────────────────────────────────────────────
+  DREAM MOSAIC: subtle parallax on scroll
+──────────────────────────────────────────────*/
+const dreamBlocks = document.querySelectorAll('.dream-block img');
+function parallaxDream(){
+  const dreamSection = document.getElementById('dream');
+  if(!dreamSection) return;
+  const rect = dreamSection.getBoundingClientRect();
+  const progress = -rect.top / (rect.height + window.innerHeight);
+  dreamBlocks.forEach((img,i)=>{
+    const dir = i % 2 === 0 ? 1 : -1;
+    const shift = progress * 40 * dir;
+    img.style.transform = `translateY(${shift}px) scale(1.08)`;
+  });
+}
+window.addEventListener('scroll', parallaxDream, {passive:true});
+</script>
+</body>
+</html>
